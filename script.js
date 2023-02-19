@@ -15,12 +15,31 @@ Book.prototype.info = function info() {
 }
 
 // Demo books
-const harryPotter = new Book('Harry Potter', "J.K. Rowling", "300p", `read: yes`);
+const harryPotter = new Book(
+  "Harry Potter and the Sorcerer's Stone", 
+  "J. K. Rowling", 
+  "223p", 
+  `read: yes`);
 myLibrary.push(harryPotter);
-const lordOfTheRings = new Book('Lord of the rings', "Some fantasy author", "500p", `read: no`);
+const lordOfTheRings = new Book(
+  'The Lord of the Rings', 
+  "J. R. R. Tolkien", 
+  "9250p", 
+  `read: no`);
 myLibrary.push(lordOfTheRings);
-const sevenHabits = new Book('7 Habits of effective people', "Some smart author", "100p", `read: yes`);
+const atomicHabits = new Book(
+  'Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', 
+  "James Clear", 
+  "320p", 
+  `read: no`);
+myLibrary.push(atomicHabits);
+const sevenHabits = new Book(
+  'The 7 Habits of Highly Effective People', 
+  "Stephen Covey", 
+  "381p", 
+  `read: yes`);
 myLibrary.push(sevenHabits);
+
 
 // Create book card function
 function createBookCard(book) {
@@ -76,4 +95,18 @@ function addBookToLibrary() {
   myLibrary.push(newBook);
 }
 
-document.getElementById("btn-add").addEventListener("click", addBookToLibrary);
+// Add button handling
+const addBtn = document.getElementById("btn-add");
+addBtn.addEventListener("click", addBookToLibrary);
+
+// Form manipulation
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const pages = document.querySelector("#pages");
+
+const submitButton = document.querySelector(".submit-btn")
+submitButton.addEventListener('click', () => {
+  console.log(title.value);
+  console.log(author.value);
+  console.log(pages.value);
+})
