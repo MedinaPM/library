@@ -2,7 +2,7 @@ html {
   background-color: rgb(100, 100, 100);
 }
 
-.book-container {
+#book-container {
   display: flex;
   justify-content: space-evenly;
 }
