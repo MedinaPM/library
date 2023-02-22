@@ -1,14 +1,52 @@
-html {
+/* html {
   background-color: rgb(100, 100, 100);
+} */
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 1.5rem;
+}
+
+.btn-add {
+  height: fit-content;
 }
 
 #book-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 260px);
+  grid-gap: 2rem;
   justify-content: space-evenly;
 }
 
+.book-card {
+  padding: 0rem 1rem;
+  border: solid;
+}
+
+p.title {
+  font-size: 1.1rem;
+}
+
+p.author {
+  font-style: italic;
+  color: rgb(100, 100, 100);
+}
+
 #form {
-  display: flex;
+  display: none;
+  justify-content: center;
   flex-direction: column;
-  width: 350px;
+  padding: 1.2rem 1rem;
+  border: solid;
+  background-color: rgba(200, 199, 199, 0.300);
+  gap: 1.2rem;
+  height: auto;
+  width: 250px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -125px;  /* Negative half of height. */
+  margin-left: -125px;  /* Negative half of width. */
 }

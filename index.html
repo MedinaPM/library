@@ -11,16 +11,24 @@
   <header>
     <div class="header-container">
       <h1>Library</h1>
+      <button class="btn-add">Add a Book</button>
     </div>
   </header>
   <main>
     <div id="book-container"></div>
     <div id="form">
+      <p>Add a book</p>
       <input type="text"id="title" placeholder="Title">
       <input type="text" id="author" placeholder="Author">
       <input type="text" id="pages" placeholder="0">
-      <button class="submit-btn">Add book</button>
-      <button id="btn-add">Add a Book</button>
+      <div>
+        <input type="checkbox" id="status">
+        <label for="status">Read</label>
+      </div>
+      <div class="form-btn">
+        <button class="btn-submit">Add book</button>
+        <button class="btn-close">Close</button>
+      </div>
     </div>
     <h1 class="greeting"></h1>
   </main>

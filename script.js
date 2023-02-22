@@ -1,47 +1,53 @@
 // Library array
-let myLibrary = [];
+const myLibrary = [];
 
 // Constructor function
-function Book(title, author, pages, read) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
-// Prototype function
-Book.prototype.info = function info() {
-  return `${this.title  } by ${  this.author  }, ${  this.pages  }, ${  this.read}`;
-}
+// Form fields and buttons selectors
+const form = document.querySelector("#form");
+const title = document.querySelector("#title");
+const author = document.querySelector("#author");
+const pages = document.querySelector("#pages");
+const readIt = document.querySelector("#status");
+const addBtn = document.querySelector(".btn-add");
+const submitBtn = document.querySelector(".btn-submit");
+const closeBtn = document.querySelector(".btn-close");
 
-// Demo books
+// Demo books (to be deleted when finish styling)
 const harryPotter = new Book(
   "Harry Potter and the Sorcerer's Stone", 
   "J. K. Rowling", 
   "223p", 
-  `read: yes`);
+  true);
 myLibrary.push(harryPotter);
 const lordOfTheRings = new Book(
   'The Lord of the Rings', 
   "J. R. R. Tolkien", 
   "9250p", 
-  `read: no`);
+  false);
 myLibrary.push(lordOfTheRings);
 const atomicHabits = new Book(
   'Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', 
   "James Clear", 
   "320p", 
-  `read: no`);
+  false);
 myLibrary.push(atomicHabits);
 const sevenHabits = new Book(
   'The 7 Habits of Highly Effective People', 
   "Stephen Covey", 
   "381p", 
-  `read: yes`);
+  true);
 myLibrary.push(sevenHabits);
 
-
-// Create book card function
+// Create book card
 function createBookCard(book) {
   const container = document.querySelector('#book-container');
 
@@ -52,26 +58,34 @@ function createBookCard(book) {
   container.appendChild(content);
 }
 
-// Display book info function
+// Display book info
 function displayBookInfo(book) {
   const container = document.querySelector(`#book-card${myLibrary.indexOf(book)}`);
   
   const bookTitle = document.createElement('p');
+  bookTitle.classList.add('title');
   bookTitle.textContent = book.title;
+  container.appendChild(bookTitle);
   
   const bookAuthor = document.createElement('p');
+  bookAuthor.classList.add('author');
   bookAuthor.textContent = book.author;
+  container.appendChild(bookAuthor);
   
   const bookPages = document.createElement('p');
   bookPages.textContent = book.pages;
+  container.appendChild(bookPages);
   
   const bookStatus = document.createElement('p');
   bookStatus.textContent = book.read;
-
-  container.appendChild(bookTitle);
-  container.appendChild(bookAuthor);
-  container.appendChild(bookPages);
   container.appendChild(bookStatus);
+}
+
+function clearLibrary() {
+  const container = document.querySelector("#book-container");
+  while (container.hasChildNodes()) {
+    container.removeChild(container.firstChild);
+  }
 }
 
 // Loop through book library function
@@ -80,33 +94,25 @@ function loopBookLibrary() {
   myLibrary.forEach(book => displayBookInfo(book));
 }
 
-loopBookLibrary();
-
-// Book addition function
-function addBookToLibrary() {
-  const title = prompt('enter title', 'title');
-  const author = prompt('enter author', 'author');
-  const pages = prompt('enter num of pages', '0');
-  const status = prompt('have you read it?', 'yes/no');
-  const newBook = new Book(title, author, pages, `read: ${status}`);
-  
-  console.log(newBook.info());
-  
-  myLibrary.push(newBook);
+// Open and close form
+function openForm() {
+  form.style.display = "flex";
+}
+function closeForm() {
+  form.style.display = "none";
 }
 
-// Add button handling
-const addBtn = document.getElementById("btn-add");
-addBtn.addEventListener("click", addBookToLibrary);
+// Book addition
+function submitBook() {
+  const newBook = new Book(title.value, author.value, pages.value, readIt.checked);
+  myLibrary.push(newBook);
+  
+  closeForm();
+  clearLibrary();
+  loopBookLibrary();
+}
 
-// Form manipulation
-const title = document.querySelector("#title");
-const author = document.querySelector("#author");
-const pages = document.querySelector("#pages");
-
-const submitButton = document.querySelector(".submit-btn")
-submitButton.addEventListener('click', () => {
-  console.log(title.value);
-  console.log(author.value);
-  console.log(pages.value);
-})
+// Button handlers
+addBtn.addEventListener("click", openForm);
+submitBtn.addEventListener('click', submitBook);
+closeBtn.addEventListener("click", closeForm);
