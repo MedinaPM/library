@@ -85,6 +85,12 @@ function displayBookInfo(book) {
   bookBtn.classList.add(`BR${myLibrary.indexOf(book)}`);
   bookBtn.textContent = 'Remove book';
   container.appendChild(bookBtn);
+
+  const bookStatusBtn = document.createElement('button');
+  bookStatusBtn.classList.add('btn-status');
+  bookStatusBtn.classList.add(`BS${myLibrary.indexOf(book)}`)
+  bookStatusBtn.textContent = 'Read status change';
+  container.appendChild(bookStatusBtn);
 }
 
 function clearLibrary() {
@@ -120,11 +126,28 @@ function submitBook() {
 
 // Remove book
 function removeBtnListener(e) {
-  if(e.target.classList.contains("btn-remove")){
+  if(e.target.classList.contains("btn-remove")) {
     const element = e.target.classList[1];
     const bookNumber = element.slice(2, element.length);
-
+    
     myLibrary.splice(bookNumber, 1);
+    clearLibrary();
+    loopBookLibrary();
+  }
+}
+
+// Change read status
+function changeStatus(e) {
+  if(e.target.classList.contains('btn-status')) {
+    const element = e.target.classList[1];
+    const bookNumber = element.slice(2, element.length);
+    
+    myLibrary[bookNumber] = new Book(
+      myLibrary[bookNumber].title, 
+      myLibrary[bookNumber].author, 
+      myLibrary[bookNumber].pages, 
+      !myLibrary[bookNumber].read);
+
     clearLibrary();
     loopBookLibrary();
   }
@@ -135,3 +158,4 @@ addBtn.addEventListener("click", openForm);
 submitBtn.addEventListener('click', submitBook);
 closeBtn.addEventListener("click", closeForm);
 document.addEventListener("click", removeBtnListener);
+document.addEventListener("click", changeStatus);
