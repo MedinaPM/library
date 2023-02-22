@@ -79,6 +79,12 @@ function displayBookInfo(book) {
   const bookStatus = document.createElement('p');
   bookStatus.textContent = book.read;
   container.appendChild(bookStatus);
+
+  const bookBtn = document.createElement('button');
+  bookBtn.classList.add("btn-remove");
+  bookBtn.classList.add(`BR${myLibrary.indexOf(book)}`);
+  bookBtn.textContent = 'Remove book';
+  container.appendChild(bookBtn);
 }
 
 function clearLibrary() {
@@ -112,7 +118,20 @@ function submitBook() {
   loopBookLibrary();
 }
 
+// Remove book
+function removeBtnListener(e) {
+  if(e.target.classList.contains("btn-remove")){
+    const element = e.target.classList[1];
+    const bookNumber = element.slice(2, element.length);
+
+    myLibrary.splice(bookNumber, 1);
+    clearLibrary();
+    loopBookLibrary();
+  }
+}
+
 // Button handlers
 addBtn.addEventListener("click", openForm);
 submitBtn.addEventListener('click', submitBook);
 closeBtn.addEventListener("click", closeForm);
+document.addEventListener("click", removeBtnListener);
