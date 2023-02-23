@@ -1,7 +1,7 @@
-// Library array
+// Library
 const myLibrary = [];
 
-// Constructor function
+// Constructor and prototype
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -11,8 +11,12 @@ class Book {
   }
 }
 
-Book.prototype.changeS = function changeS(arrIndex) {
+Book.prototype.isRead = function isRead(arrIndex) {
   myLibrary[arrIndex].read = !myLibrary[arrIndex].read;
+}
+
+Book.prototype.remove = function remove(arrIndex) {
+  myLibrary.splice(arrIndex, 1);
 }
 
 // Form fields and buttons selectors
@@ -128,34 +132,26 @@ function submitBook() {
   loopBookLibrary();
 }
 
-// Remove book
-function removeBtnListener(e) {
-  if(e.target.classList.contains("btn-remove")) {
-    const element = e.target.classList[1];
-    const bookNumber = element.slice(2, element.length);
-    
-    myLibrary.splice(bookNumber, 1);
+function clickListener(e) {
+  const clickClass = e.target.classList;
+
+  if (clickClass.contains("btn-remove")) {
+    const element = clickClass[1];
+    const arrIndex = element.slice(2, element.length);
+    myLibrary[arrIndex].remove(arrIndex);
+    clearLibrary();
+    loopBookLibrary();
+  } else if (clickClass.contains("btn-status")) {
+    const element = clickClass[1];
+    const arrIndex = element.slice(2, element.length);
+    myLibrary[arrIndex].isRead(arrIndex);
     clearLibrary();
     loopBookLibrary();
   }
 }
 
-// Change read status
-function changeStatus(e) {
-  if(e.target.classList.contains('btn-status')) {
-    const element = e.target.classList[1];
-    const bookNumber = element.slice(2, element.length);
-
-    myLibrary[bookNumber].changeS(bookNumber);
-
-    clearLibrary();
-    loopBookLibrary();
-    }
-  }
-
 // Button handlers
 addBtn.addEventListener("click", openForm);
 submitBtn.addEventListener('click', submitBook);
 closeBtn.addEventListener("click", closeForm);
-document.addEventListener("click", removeBtnListener);
-document.addEventListener("click", changeStatus);
+document.addEventListener("click", clickListener);
