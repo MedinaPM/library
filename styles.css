@@ -34,7 +34,7 @@ p.author {
   color: rgb(100, 100, 100);
 }
 
-#form {
+.form {
   display: none;
   justify-content: center;
   flex-direction: column;
