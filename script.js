@@ -19,15 +19,12 @@ Book.prototype.remove = function remove(arrIndex) {
   myLibrary.splice(arrIndex, 1);
 }
 
-// Form fields and buttons selectors
+// Form fields selectors
 const form = document.querySelector("#form");
 const title = document.querySelector("#title");
 const author = document.querySelector("#author");
 const pages = document.querySelector("#pages");
 const readIt = document.querySelector("#status");
-const addBtn = document.querySelector(".btn-add");
-const submitBtn = document.querySelector(".btn-submit");
-const closeBtn = document.querySelector(".btn-close");
 
 // Demo books (to be deleted when finish styling)
 const harryPotter = new Book(
@@ -114,24 +111,7 @@ function loopBookLibrary() {
   myLibrary.forEach(book => displayBookInfo(book));
 }
 
-// Open and close form
-function openForm() {
-  form.style.display = "flex";
-}
-function closeForm() {
-  form.style.display = "none";
-}
-
-// Book addition
-function submitBook() {
-  const newBook = new Book(title.value, author.value, pages.value, readIt.checked);
-  myLibrary.push(newBook);
-  
-  closeForm();
-  clearLibrary();
-  loopBookLibrary();
-}
-
+// Buttons clicks handler & listener
 function clickListener(e) {
   const clickClass = e.target.classList;
 
@@ -147,11 +127,17 @@ function clickListener(e) {
     myLibrary[arrIndex].readToggle(arrIndex);
     clearLibrary();
     loopBookLibrary();
+  } else if (clickClass.contains("btn-open")) {
+    form.style.display = "flex";
+  } else if (clickClass.contains("btn-close")) {
+    form.style.display = "none";
+  } else if (clickClass.contains(("btn-submit"))) {
+    const newBook = new Book(title.value, author.value, pages.value, readIt.checked);
+    myLibrary.push(newBook);
+    form.style.display = "none";
+    clearLibrary();
+    loopBookLibrary();
   }
 }
 
-// Button handlers
-addBtn.addEventListener("click", openForm);
-submitBtn.addEventListener('click', submitBook);
-closeBtn.addEventListener("click", closeForm);
 document.addEventListener("click", clickListener);
