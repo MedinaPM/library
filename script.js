@@ -11,6 +11,10 @@ class Book {
   }
 }
 
+Book.prototype.changeS = function changeS(arrIndex) {
+  myLibrary[arrIndex].read = !myLibrary[arrIndex].read;
+}
+
 // Form fields and buttons selectors
 const form = document.querySelector("#form");
 const title = document.querySelector("#title");
@@ -141,17 +145,13 @@ function changeStatus(e) {
   if(e.target.classList.contains('btn-status')) {
     const element = e.target.classList[1];
     const bookNumber = element.slice(2, element.length);
-    
-    myLibrary[bookNumber] = new Book(
-      myLibrary[bookNumber].title, 
-      myLibrary[bookNumber].author, 
-      myLibrary[bookNumber].pages, 
-      !myLibrary[bookNumber].read);
+
+    myLibrary[bookNumber].changeS(bookNumber);
 
     clearLibrary();
     loopBookLibrary();
+    }
   }
-}
 
 // Button handlers
 addBtn.addEventListener("click", openForm);
