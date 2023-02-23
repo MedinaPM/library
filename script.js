@@ -82,7 +82,7 @@ function displayBookInfo(book) {
   container.appendChild(bookPages);
   
   const bookStatus = document.createElement('p');
-  bookStatus.textContent = book.isRead;
+  bookStatus.textContent = (book.isRead) ? "Read" : "Not read";
   container.appendChild(bookStatus);
 
   const bookBtn = document.createElement('button');
