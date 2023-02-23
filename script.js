@@ -3,16 +3,16 @@ const myLibrary = [];
 
 // Constructor and prototype
 class Book {
-  constructor(title, author, pages, read) {
+  constructor(title, author, pages, isRead) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    this.isRead = isRead;
   }
 }
 
-Book.prototype.isRead = function isRead(arrIndex) {
-  myLibrary[arrIndex].read = !myLibrary[arrIndex].read;
+Book.prototype.readToggle = function readToggle(arrIndex) {
+  myLibrary[arrIndex].isRead = !myLibrary[arrIndex].isRead;
 }
 
 Book.prototype.remove = function remove(arrIndex) {
@@ -85,7 +85,7 @@ function displayBookInfo(book) {
   container.appendChild(bookPages);
   
   const bookStatus = document.createElement('p');
-  bookStatus.textContent = book.read;
+  bookStatus.textContent = book.isRead;
   container.appendChild(bookStatus);
 
   const bookBtn = document.createElement('button');
@@ -144,7 +144,7 @@ function clickListener(e) {
   } else if (clickClass.contains("btn-status")) {
     const element = clickClass[1];
     const arrIndex = element.slice(2, element.length);
-    myLibrary[arrIndex].isRead(arrIndex);
+    myLibrary[arrIndex].readToggle(arrIndex);
     clearLibrary();
     loopBookLibrary();
   }
