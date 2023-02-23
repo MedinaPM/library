@@ -23,24 +23,24 @@ const harryPotter = new Book(
   "J. K. Rowling",
   "223p",
   true);
-myLibrary.push(harryPotter);
 const lordOfTheRings = new Book(
   'The Lord of the Rings',
   "J. R. R. Tolkien",
   "9250p",
   false);
-myLibrary.push(lordOfTheRings);
 const atomicHabits = new Book(
   'Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones',
   "James Clear",
   "320p",
   false);
-myLibrary.push(atomicHabits);
 const sevenHabits = new Book(
   'The 7 Habits of Highly Effective People',
   "Stephen Covey",
   "381p",
   true);
+myLibrary.push(harryPotter);
+myLibrary.push(lordOfTheRings);
+myLibrary.push(atomicHabits);
 myLibrary.push(sevenHabits);
 // ////////////////////////////////////////////////
 
@@ -54,31 +54,15 @@ const formIsRead = document.querySelector("#isRead");
 // Functions
 function createBookCards(book) {
   const container = document.querySelector('#book-container');
-
   const content = document.createElement('div');
   content.classList.add('book-card');
   content.setAttribute('id', `book-card${myLibrary.indexOf(book)}`);
-  
   container.appendChild(content);
 }
 
-function addBookTitle(book) {
+function addBookBasicInfo(info) {
   const content = document.createElement('p');
-  content.classList.add('title');
-  content.textContent = book.title;
-  return content;
-}
-
-function addBookAuthor(book) {
-  const content = document.createElement('p');
-  content.classList.add('author');
-  content.textContent = book.author;
-  return content;
-}
-
-function addBookPages(book) {
-  const content = document.createElement('p');
-  content.textContent = book.pages;
+  content.textContent = info;
   return content
 }
 
@@ -88,30 +72,32 @@ function addBookIsRead(book) {
   return content;
 }
 
-function addBookRemoveBtn(book) {
+function addBookRemoveBtn(bIndex) {
   const content = document.createElement('button');
   content.classList.add("btn-remove");
-  content.classList.add(`BR${myLibrary.indexOf(book)}`);
+  content.classList.add(`BR${bIndex}`);
   content.textContent = 'Remove book';
   return content;
 }
 
-function addBookReadToggleBtn(book) {
+function addBookReadToggleBtn(bIndex) {
   const content = document.createElement('button');
   content.classList.add('btn-status');
-  content.classList.add(`BS${myLibrary.indexOf(book)}`)
+  content.classList.add(`BS${bIndex}`);
   content.textContent = 'Read status change';
   return content;
 }
 
 function addBookInfo(book) {
-  const container = document.querySelector(`#book-card${myLibrary.indexOf(book)}`);
-  container.appendChild(addBookTitle(book));
-  container.appendChild(addBookAuthor(book));
-  container.appendChild(addBookPages(book));
+  const bIndex = myLibrary.indexOf(book);
+  const bSelector = `#book-card${bIndex}`;
+  const container = document.querySelector(bSelector);
+  container.appendChild(addBookBasicInfo(book.title));
+  container.appendChild(addBookBasicInfo(book.author));
+  container.appendChild(addBookBasicInfo(book.pages));
   container.appendChild(addBookIsRead(book));
-  container.appendChild(addBookRemoveBtn(book));
-  container.appendChild(addBookReadToggleBtn(book));
+  container.appendChild(addBookRemoveBtn(bIndex));
+  container.appendChild(addBookReadToggleBtn(bIndex));
 }
 
 function clearLibrary() {
