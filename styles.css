@@ -1,15 +1,15 @@
-.header-container {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0rem 1.5rem;
 }
 
-.btn-open {
+.header__button_open {
   height: fit-content;
 }
 
-#book-container {
+.book-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, 260px);
   grid-gap: 2rem;

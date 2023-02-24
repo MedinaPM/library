@@ -53,14 +53,14 @@ const form = document.querySelector(".form");
 const formTitle = document.querySelector("#title");
 const formAuthor = document.querySelector("#author");
 const formPages = document.querySelector("#pages");
-const formIsRead = document.querySelector("#isRead");
+const formIsRead = document.querySelector("#is-read");
 
 // Functions
 function createBookCards(book) {
-  const container = document.querySelector("#book-container");
+  const container = document.querySelector(".book-container");
   const content = document.createElement("div");
   content.classList.add("book-card");
-  content.setAttribute("id", `book-card${myLibrary.indexOf(book)}`);
+  content.setAttribute("id", `book-card-${myLibrary.indexOf(book)}`);
   container.appendChild(content);
 }
 
@@ -78,7 +78,7 @@ function addBookIsRead(book) {
 
 function addBookRemoveBtn(bIndex) {
   const content = document.createElement("button");
-  content.classList.add("btn-remove");
+  content.classList.add("book-card__button_remove");
   content.classList.add(`BR${bIndex}`);
   content.textContent = "Remove book";
   return content;
@@ -86,7 +86,7 @@ function addBookRemoveBtn(bIndex) {
 
 function addBookReadToggleBtn(bIndex) {
   const content = document.createElement("button");
-  content.classList.add("btn-status");
+  content.classList.add("book-card__button_status");
   content.classList.add(`BS${bIndex}`);
   content.textContent = "Read status change";
   return content;
@@ -94,7 +94,7 @@ function addBookReadToggleBtn(bIndex) {
 
 function addBookInfo(book) {
   const bIndex = myLibrary.indexOf(book);
-  const bSelector = `#book-card${bIndex}`;
+  const bSelector = `#book-card-${bIndex}`;
   const container = document.querySelector(bSelector);
   container.appendChild(addBookBasicInfo(book.title));
   container.appendChild(addBookBasicInfo(book.author));
@@ -105,7 +105,7 @@ function addBookInfo(book) {
 }
 
 function clearLibrary() {
-  const container = document.querySelector("#book-container");
+  const container = document.querySelector(".book-container");
   while (container.hasChildNodes()) {
     container.removeChild(container.firstChild);
   }
@@ -123,7 +123,7 @@ function getArrayIndex(element) {
 }
 
 function getFormStyle(clickClass) {
-  return clickClass === "btn-open" ? "flex" : "none";
+  return clickClass === "header__button_open" ? "flex" : "none";
 }
 
 function submitBook() {
@@ -140,20 +140,20 @@ function submitBook() {
 function clickListener(e) {
   const clickClass = e.target.classList;
 
-  if (clickClass.contains("btn-remove")) {
+  if (clickClass.contains("book-card__button_remove")) {
     const arrIndex = getArrayIndex(clickClass[1]);
     myLibrary[arrIndex].removeBook(arrIndex);
     displayLibrary();
-  } else if (clickClass.contains("btn-status")) {
+  } else if (clickClass.contains("book-card__button_status")) {
     const arrIndex = getArrayIndex(clickClass[1]);
     myLibrary[arrIndex].readToggle(arrIndex);
     displayLibrary();
   } else if (
-    clickClass.contains("btn-open") ||
-    clickClass.contains("btn-close")
+    clickClass.contains("header__button_open") ||
+    clickClass.contains("form-buttons__button_close")
   ) {
     form.style.display = getFormStyle(clickClass[0]);
-  } else if (clickClass.contains("btn-submit")) {
+  } else if (clickClass.contains("form-buttons__button_submit")) {
     submitBook();
   }
 }
