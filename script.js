@@ -17,37 +17,6 @@ Book.prototype.removeBook = function removeBook(arrIndex) {
   myLibrary.splice(arrIndex, 1);
 };
 
-// Demo books (to be deleted when finish styling)
-const harryPotter = new Book(
-  "Harry Potter and the Sorcerer's Stone",
-  "J. K. Rowling",
-  "223",
-  true
-);
-const lordOfTheRings = new Book(
-  "The Lord of the Rings",
-  "J. R. R. Tolkien",
-  "9250",
-  false
-);
-const atomicHabits = new Book(
-  "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
-  "James Clear",
-  "320",
-  false
-);
-const sevenHabits = new Book(
-  "The 7 Habits of Highly Effective People",
-  "Stephen Covey",
-  "381",
-  true
-);
-myLibrary.push(harryPotter);
-myLibrary.push(lordOfTheRings);
-myLibrary.push(atomicHabits);
-myLibrary.push(sevenHabits);
-// ////////////////////////////////////////////////
-
 // Form fields selectors
 const form = document.querySelector(".form");
 const formTitle = document.querySelector("#title");
@@ -191,3 +160,38 @@ function clickListener(e) {
 }
 
 document.addEventListener("click", clickListener);
+
+// Demo books (to be added for styling)
+// function addDemoBooks() {
+//   const harryPotter = new Book(
+//     "Harry Potter and the Sorcerer's Stone",
+//     "J. K. Rowling",
+//     "223",
+//     true
+//   );
+//   const lordOfTheRings = new Book(
+//     "The Lord of the Rings",
+//     "J. R. R. Tolkien",
+//     "9250",
+//     false
+//   );
+//   const atomicHabits = new Book(
+//     "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+//     "James Clear",
+//     "320",
+//     false
+//   );
+//   const sevenHabits = new Book(
+//     "The 7 Habits of Highly Effective People",
+//     "Stephen Covey",
+//     "381",
+//     true
+//   );
+//   myLibrary.push(harryPotter);
+//   myLibrary.push(lordOfTheRings);
+//   myLibrary.push(atomicHabits);
+//   myLibrary.push(sevenHabits);
+// }
+// addDemoBooks();
+// displayLibrary();
+// Demo books (to be added for styling)

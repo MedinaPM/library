@@ -8,11 +8,14 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header class="header">
-    <h1>Library</h1>
-    <button class="header__button_open">Add a Book</button>
+  <header>
+    <h1>My library</h1>
   </header>
-  <main class="main">
+  <main>
+    <nav class="nav">
+      <h2>My book collection</h2>
+      <button class="nav__button_open-form">Add a Book</button>
+    </nav>
     <div class="book-container"></div>
     <div class="form">
       <p>Add a book</p>
@@ -24,11 +27,14 @@
         <label for="is-read">Read</label>
       </div>
       <div class="form-buttons">
-        <button class="form-buttons__button_submit">Add book</button>
-        <button class="form-buttons__button_close">Close</button>
+        <button class="form-buttons__button_submit-form">Add book</button>
+        <button class="form-buttons__button_close-form">Close</button>
       </div>
     </div>
   </main>
+  <footer>
+    <p>Copyright 2023 © All rights Reserved.</p>
+  </footer>
   <script src="./script.js"></script>
 </body>
 </html>
