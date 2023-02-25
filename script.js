@@ -21,25 +21,25 @@ Book.prototype.removeBook = function removeBook(arrIndex) {
 const harryPotter = new Book(
   "Harry Potter and the Sorcerer's Stone",
   "J. K. Rowling",
-  "223p",
+  "223",
   true
 );
 const lordOfTheRings = new Book(
   "The Lord of the Rings",
   "J. R. R. Tolkien",
-  "9250p",
+  "9250",
   false
 );
 const atomicHabits = new Book(
   "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
   "James Clear",
-  "320p",
+  "320",
   false
 );
 const sevenHabits = new Book(
   "The 7 Habits of Highly Effective People",
   "Stephen Covey",
-  "381p",
+  "381",
   true
 );
 myLibrary.push(harryPotter);
@@ -64,9 +64,30 @@ function createBookCards(book) {
   container.appendChild(content);
 }
 
-function addBookBasicInfo(info) {
+function addBookTextContainer(bIndex) {
+  const content = document.createElement("div");
+  content.classList.add("book-card__text-container");
+  content.classList.add(`TC${bIndex}`);
+  return content;
+}
+
+function addBookTitle(book) {
   const content = document.createElement("p");
-  content.textContent = info;
+  content.textContent = `"${book.title}"`;
+  content.classList.add("book-card__title");
+  return content;
+}
+
+function addBookAuthor(book) {
+  const content = document.createElement("p");
+  content.textContent = `By: ${book.author}`;
+  content.classList.add("book-card__author");
+  return content;
+}
+
+function addBookPages(book) {
+  const content = document.createElement("p");
+  content.textContent = `${book.pages} pages`;
   return content;
 }
 
@@ -76,19 +97,26 @@ function addBookIsRead(book) {
   return content;
 }
 
+function addBookButtonsContainer(bIndex) {
+  const content = document.createElement("div");
+  content.classList.add("book-card__button-container");
+  content.classList.add(`BC${bIndex}`);
+  return content;
+}
+
 function addBookRemoveBtn(bIndex) {
   const content = document.createElement("button");
-  content.classList.add("book-card__button_remove");
+  content.classList.add("book-card__button_remove-book");
   content.classList.add(`BR${bIndex}`);
-  content.textContent = "Remove book";
+  content.textContent = "Remove";
   return content;
 }
 
 function addBookReadToggleBtn(bIndex) {
   const content = document.createElement("button");
-  content.classList.add("book-card__button_status");
+  content.classList.add("book-card__button_is-read-toggle");
   content.classList.add(`BS${bIndex}`);
-  content.textContent = "Read status change";
+  content.textContent = "Read it?";
   return content;
 }
 
@@ -96,12 +124,16 @@ function addBookInfo(book) {
   const bIndex = myLibrary.indexOf(book);
   const bSelector = `#book-card-${bIndex}`;
   const container = document.querySelector(bSelector);
-  container.appendChild(addBookBasicInfo(book.title));
-  container.appendChild(addBookBasicInfo(book.author));
-  container.appendChild(addBookBasicInfo(book.pages));
-  container.appendChild(addBookIsRead(book));
-  container.appendChild(addBookRemoveBtn(bIndex));
-  container.appendChild(addBookReadToggleBtn(bIndex));
+  container.appendChild(addBookTextContainer(bIndex));
+  const textContainer = document.querySelector(`.TC${bIndex}`);
+  textContainer.appendChild(addBookTitle(book));
+  textContainer.appendChild(addBookAuthor(book));
+  textContainer.appendChild(addBookPages(book));
+  textContainer.appendChild(addBookIsRead(book));
+  container.appendChild(addBookButtonsContainer(bIndex));
+  const buttonContainer = document.querySelector(`.BC${bIndex}`);
+  buttonContainer.appendChild(addBookRemoveBtn(bIndex));
+  buttonContainer.appendChild(addBookReadToggleBtn(bIndex));
 }
 
 function clearLibrary() {
@@ -123,7 +155,7 @@ function getArrayIndex(element) {
 }
 
 function getFormStyle(clickClass) {
-  return clickClass === "header__button_open" ? "flex" : "none";
+  return clickClass === "nav__button_open-form" ? "flex" : "none";
 }
 
 function submitBook() {
@@ -140,20 +172,20 @@ function submitBook() {
 function clickListener(e) {
   const clickClass = e.target.classList;
 
-  if (clickClass.contains("book-card__button_remove")) {
+  if (clickClass.contains("book-card__button_remove-book")) {
     const arrIndex = getArrayIndex(clickClass[1]);
     myLibrary[arrIndex].removeBook(arrIndex);
     displayLibrary();
-  } else if (clickClass.contains("book-card__button_status")) {
+  } else if (clickClass.contains("book-card__button_is-read-toggle")) {
     const arrIndex = getArrayIndex(clickClass[1]);
     myLibrary[arrIndex].readToggle(arrIndex);
     displayLibrary();
   } else if (
-    clickClass.contains("header__button_open") ||
-    clickClass.contains("form-buttons__button_close")
+    clickClass.contains("nav__button_open-form") ||
+    clickClass.contains("form-buttons__button_close-form")
   ) {
     form.style.display = getFormStyle(clickClass[0]);
-  } else if (clickClass.contains("form-buttons__button_submit")) {
+  } else if (clickClass.contains("form-buttons__button_submit-form")) {
     submitBook();
   }
 }
